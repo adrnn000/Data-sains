@@ -1,0 +1,26 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Ambil data dari form
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $comment = htmlspecialchars(trim($_POST['comment']));
+
+    // Validasi input
+    if (!empty($name) && !empty($email) && !empty($comment)) {
+        // Pengaturan email
+        $to = "your-adrianrifaldi0@gmail.com"; //
+        $subject = "New Message from Contact Form";
+        $message = "Name: $name\nEmail: $email\n\nMessage:\n$comment";
+        $headers = "From: $email";
+
+        // Kirim email
+        if (mail($to, $subject, $message, $headers)) {
+            echo "<div class='alert alert-success'>Your message has been sent. Thank you!</div>";
+        } else {
+            echo "<div class='alert alert-danger'>There was an error sending your message. Please try again later.</div>";
+        }
+    } else {
+        echo "<div class='alert alert-danger'>Please fill in all fields.</div>";
+    }
+}
+?>
